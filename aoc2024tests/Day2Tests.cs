@@ -46,6 +46,6 @@ public class Day2Tests
         var result = day2.Part2(filename);
 
         // Assert
-        Assert.That(result, Is.EqualTo(-1));
+        Assert.That(result, Is.EqualTo(4));
     }
 }
