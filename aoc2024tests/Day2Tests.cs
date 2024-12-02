@@ -13,14 +13,19 @@ public class Day2Tests
         // Arrange
         string filename = "input.txt";
         var mockUtilities = Substitute.For<IUtilities>();
-        mockUtilities.ReadFile(filename).Returns([]);
+        mockUtilities.ReadFile(filename).Returns(["7 6 4 2 1",
+            "1 2 7 8 9",
+            "9 7 6 2 1",
+            "1 3 2 4 5",
+            "8 6 4 4 1",
+            "1 3 6 7 9"]);
         var day2 = new Day2(mockUtilities);
 
         // Act
         var result = day2.Part1(filename);
 
         // Assert
-        Assert.That(result, Is.EqualTo(-1));
+        Assert.That(result, Is.EqualTo(2));
     }
 
     [Test]
@@ -30,7 +35,12 @@ public class Day2Tests
         var mockUtilities = Substitute.For<IUtilities>();
         var day2 = new Day2(mockUtilities);
         string filename = "input.txt";
-        mockUtilities.ReadFile(filename).Returns([]);
+        mockUtilities.ReadFile(filename).Returns(["7 6 4 2 1",
+            "1 2 7 8 9",
+            "9 7 6 2 1",
+            "1 3 2 4 5",
+            "8 6 4 4 1",
+            "1 3 6 7 9"]);
 
         // Act
         var result = day2.Part2(filename);
