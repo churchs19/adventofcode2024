@@ -1,19 +1,74 @@
+using System.Text.RegularExpressions;
+
 namespace Aoc2024;
-public class Day3(IUtilities utilities)
+public partial class Day3(IUtilities utilities)
 {
     private readonly IUtilities _utilities = utilities;
+    [GeneratedRegex(@"mul\([\d]+,[\d]+\)")]
+    private static partial Regex Part1Regex();
+    [GeneratedRegex(@"(mul\([\d]+,[\d]+\))|(don't\(\))|(do\(\))")]
+    private static partial Regex Part2Regex();
+
+    [GeneratedRegex(@"[\d]+")]
+    private static partial Regex NumberRegex();
 
     public int Part1(string filename)
     {
         var lines = _utilities.ReadFile(filename);
 
-        return int.MinValue;
+        var sum = 0;
+        foreach (var line in lines)
+        {
+            var matches = Part1Regex().Matches(line);
+
+            foreach (Match match in matches)
+            {
+                var numbers = NumberRegex().Matches(match.Value);
+                var num1 = int.Parse(numbers[0].Value);
+                var num2 = int.Parse(numbers[1].Value);
+                sum += num1 * num2;
+            }
+        }
+
+        return sum;
     }
 
     public int Part2(string filename)
     {
         var lines = _utilities.ReadFile(filename);
 
-        return int.MinValue;
+        var sum = 0;
+
+        var enabled = true;
+        foreach (var line in lines)
+        {
+            var matches = Part2Regex().Matches(line);
+
+            foreach (Match match in matches)
+            {
+                if (match.Value == "don't()")
+                {
+                    enabled = false;
+                    continue;
+                }
+                else if (match.Value == "do()")
+                {
+                    enabled = true;
+                    continue;
+                }
+                else
+                {
+                    if (enabled)
+                    {
+                        var numbers = NumberRegex().Matches(match.Value);
+                        var num1 = int.Parse(numbers[0].Value);
+                        var num2 = int.Parse(numbers[1].Value);
+                        sum += num1 * num2;
+                    }
+                }
+            }
+        }
+
+        return sum;
     }
 }

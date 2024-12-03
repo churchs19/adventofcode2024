@@ -7,5 +7,5 @@ var day2 = new Day2(new Utilities());
 Console.WriteLine($"Day 2 - Part 1: {day2.Part1("2/input.txt")}");
 Console.WriteLine($"Day 2 - Part 2: {day2.Part2("2/input.txt")}");
 var day3 = new Day3(new Utilities());
-Console.WriteLine($"Day 3 - Part 1: {day2.Part1("3/input.txt")}");
-Console.WriteLine($"Day 3 - Part 2: {day2.Part2("3/input.txt")}");
+Console.WriteLine($"Day 3 - Part 1: {day3.Part1("3/input.txt")}");
+Console.WriteLine($"Day 3 - Part 2: {day3.Part2("3/input.txt")}");
