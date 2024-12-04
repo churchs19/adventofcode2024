@@ -1,9 +1,7 @@
 namespace Aoc2024;
-public class Day1(IUtilities utilities) : IDay
+public class Day1(IUtilities utilities) : Day(utilities)
 {
-    private readonly IUtilities _utilities = utilities;
-
-    public int Part1(string filename)
+    public override int Part1(string filename)
     {
         var lines = _utilities.ReadFile(filename);
 
@@ -23,7 +21,7 @@ public class Day1(IUtilities utilities) : IDay
         return sum;
     }
 
-    public int Part2(string filename)
+    public override int Part2(string filename)
     {
         var lines = _utilities.ReadFile(filename);
 

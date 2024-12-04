@@ -1,9 +1,8 @@
 using System.Text.RegularExpressions;
 
 namespace Aoc2024;
-public partial class Day3(IUtilities utilities) : IDay
+public partial class Day3(IUtilities utilities) : Day(utilities)
 {
-    private readonly IUtilities _utilities = utilities;
     [GeneratedRegex(@"mul\([\d]+,[\d]+\)")]
     private static partial Regex Part1Regex();
     [GeneratedRegex(@"(mul\([\d]+,[\d]+\))|(don't\(\))|(do\(\))")]
@@ -12,7 +11,7 @@ public partial class Day3(IUtilities utilities) : IDay
     [GeneratedRegex(@"[\d]+")]
     private static partial Regex NumberRegex();
 
-    public int Part1(string filename)
+    public override int Part1(string filename)
     {
         var lines = _utilities.ReadFile(filename);
 
@@ -33,7 +32,7 @@ public partial class Day3(IUtilities utilities) : IDay
         return sum;
     }
 
-    public int Part2(string filename)
+    public override int Part2(string filename)
     {
         var lines = _utilities.ReadFile(filename);
 

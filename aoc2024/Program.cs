@@ -1,10 +1,12 @@
 ﻿using Aoc2024;
 
+var utilities = new Utilities();
 var days = new List<IDay>
 {
-    new Day1(new Utilities()),
-    new Day2(new Utilities()),
-    new Day3(new Utilities())
+    new Day1(utilities),
+    new Day2(utilities),
+    new Day3(utilities),
+    new Day4(utilities),
 };
 
 for (var i = 0; i < days.Count; i++)
