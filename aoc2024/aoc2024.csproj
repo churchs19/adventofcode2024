@@ -6,14 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <None Update="1\input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="2\input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="3\input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <InputFiles Include="inputs\*.txt"/>
   </ItemGroup>
+
+  <Target Name="CopyInputs" AfterTargets="Build">
+    <Copy SourceFiles="@(InputFiles)" DestinationFolder="$(OutDir)inputs" SkipUnchangedFiles="true" />
+  </Target>
 </Project>

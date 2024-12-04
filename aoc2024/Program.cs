@@ -1,11 +1,14 @@
 ﻿using Aoc2024;
 
-var day1 = new Day1(new Utilities());
-Console.WriteLine($"Day 1 - Part 1: {day1.Part1("1/input.txt")}");
-Console.WriteLine($"Day 1 - Part 2: {day1.Part2("1/input.txt")}");
-var day2 = new Day2(new Utilities());
-Console.WriteLine($"Day 2 - Part 1: {day2.Part1("2/input.txt")}");
-Console.WriteLine($"Day 2 - Part 2: {day2.Part2("2/input.txt")}");
-var day3 = new Day3(new Utilities());
-Console.WriteLine($"Day 3 - Part 1: {day3.Part1("3/input.txt")}");
-Console.WriteLine($"Day 3 - Part 2: {day3.Part2("3/input.txt")}");
+var days = new List<IDay>
+{
+    new Day1(new Utilities()),
+    new Day2(new Utilities()),
+    new Day3(new Utilities())
+};
+
+for (var i = 0; i < days.Count; i++)
+{
+    Console.WriteLine($"Day {i + 1} - Part 1: {days[i].Part1($"inputs/{i + 1}.txt")}");
+    Console.WriteLine($"Day {i + 1} - Part 2: {days[i].Part2($"inputs/{i + 1}.txt")}");
+}

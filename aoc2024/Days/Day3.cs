@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
 
 namespace Aoc2024;
-public partial class Day3(IUtilities utilities)
+public partial class Day3(IUtilities utilities) : IDay
 {
     private readonly IUtilities _utilities = utilities;
     [GeneratedRegex(@"mul\([\d]+,[\d]+\)")]

@@ -1,5 +1,5 @@
 namespace Aoc2024;
-public class Day1(IUtilities utilities)
+public class Day1(IUtilities utilities) : IDay
 {
     private readonly IUtilities _utilities = utilities;
 
