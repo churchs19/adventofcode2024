@@ -21,9 +21,8 @@ public class Utilities : IUtilities
     public string[] ReadFileKeepBlankLines(string filename)
     {
         var projectFolder = Directory.GetCurrentDirectory();
-        return File.ReadAllText(Path.Combine(projectFolder, filename))
+        return [.. File.ReadAllText(Path.Combine(projectFolder, filename))
             .TrimEnd()
-            .Split("\n")
-            .ToArray();
+            .Split("\n")];
     }
 }

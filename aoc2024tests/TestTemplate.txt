@@ -33,7 +33,7 @@ public class DayXTests
         var day = new DayX(mockUtilities);
 
         // Act
-        var result = day.Part1(filename);
+        var result = day.Part2(filename);
 
         // Assert
         Assert.That(result, Is.EqualTo(-1));

@@ -47,7 +47,7 @@ public class Day5Tests
         var result = day.Part1(filename);
 
         // Assert
-        Assert.That(result, Is.EqualTo(-1));
+        Assert.That(result, Is.EqualTo(143));
     }
 
     [Test]
@@ -87,9 +87,9 @@ public class Day5Tests
         var day = new Day5(mockUtilities);
 
         // Act
-        var result = day.Part1(filename);
+        var result = day.Part2(filename);
 
         // Assert
-        Assert.That(result, Is.EqualTo(-1));
+        Assert.That(result, Is.EqualTo(123));
     }
 }
