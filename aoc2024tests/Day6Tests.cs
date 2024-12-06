@@ -29,7 +29,7 @@ public class Day6Tests
         var result = day.Part1(filename);
 
         // Assert
-        Assert.That(result, Is.EqualTo(-1));
+        Assert.That(result, Is.EqualTo(41));
     }
 
     [Test]
@@ -54,6 +54,6 @@ public class Day6Tests
         var result = day.Part2(filename);
 
         // Assert
-        Assert.That(result, Is.EqualTo(-1));
+        Assert.That(result, Is.EqualTo(6));
     }
 }
