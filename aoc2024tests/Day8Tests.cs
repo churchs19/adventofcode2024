@@ -1,5 +1,7 @@
 using Aoc2024;
 
+using Microsoft.VisualBasic;
+
 using NSubstitute;
 
 namespace Aoc2024Tests;
@@ -58,6 +60,32 @@ public class Day8Tests
         var result = day.Part2(filename);
 
         // Assert
-        Assert.That(result, Is.EqualTo(-1));
+        Assert.That(result, Is.EqualTo(34));
+    }
+
+    [Test]
+    public void Part2_TCells_ReturnsExpected()
+    {
+        // Arrange
+        string filename = "input.txt";
+        var mockUtilities = Substitute.For<IUtilities>();
+        mockUtilities.ReadFile(filename).Returns(["T.........",
+"...T......",
+".T........",
+"..........",
+"..........",
+"..........",
+"..........",
+"..........",
+"..........",
+".........."]);
+
+        var day = new Day8(mockUtilities);
+
+        // Act
+        var result = day.Part2(filename);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(9));
     }
 }
