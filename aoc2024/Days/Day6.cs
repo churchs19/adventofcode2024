@@ -2,7 +2,7 @@ namespace Aoc2024;
 
 public class Day6(IUtilities utilities) : Day(utilities)
 {
-    public override int Part1(string filename)
+    public override long Part1(string filename)
     {
         var lines = _utilities.ReadFile(filename);
         var map = lines.Select(x => x.ToCharArray()).ToArray();
@@ -18,7 +18,7 @@ public class Day6(IUtilities utilities) : Day(utilities)
         return visitedCount;
     }
 
-    public override int Part2(string filename)
+    public override long Part2(string filename)
     {
         var lines = _utilities.ReadFile(filename);
         var map = lines.Select(x => x.ToCharArray()).ToArray();

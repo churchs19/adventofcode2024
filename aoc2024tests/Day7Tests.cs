@@ -52,6 +52,6 @@ public class Day7Tests
         var result = day.Part2(filename);
 
         // Assert
-        Assert.That(result, Is.EqualTo(-1));
+        Assert.That(result, Is.EqualTo(11387));
     }
 }

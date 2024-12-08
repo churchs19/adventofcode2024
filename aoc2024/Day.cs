@@ -4,6 +4,6 @@ public abstract class Day(IUtilities utilities) : IDay
 {
     protected readonly IUtilities _utilities = utilities;
 
-    public abstract int Part1(string filename);
-    public abstract int Part2(string filename);
+    public abstract long Part1(string filename);
+    public abstract long Part2(string filename);
 }
