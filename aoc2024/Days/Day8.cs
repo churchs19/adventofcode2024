@@ -35,7 +35,7 @@ public class Day8(IUtilities utilities) : Day(utilities)
 
         foreach (var key in nodeDictionary.Keys)
         {
-            var keyNodes = GetResonantAntiNodes(nodeDictionary[key], map.Length, map[0].Length, false);
+            var keyNodes = GetResonantAntiNodes(nodeDictionary[key], map.Length, map[0].Length);
             antiNodes.UnionWith(keyNodes);
         }
 
@@ -63,6 +63,11 @@ public class Day8(IUtilities utilities) : Day(utilities)
             }
         }
         return nodeDictionary;
+    }
+
+    private static bool MapContains((int, int) node, int gridRows, int gridCols)
+    {
+        return node.Item1 >= 0 && node.Item1 < gridRows && node.Item2 >= 0 && node.Item2 < gridCols;
     }
 
     private static HashSet<(int, int)> GetAntiNodes(List<(int, int)> nodes, int gridRows, int gridCols)
@@ -112,7 +117,27 @@ public class Day8(IUtilities utilities) : Day(utilities)
 
     private static HashSet<(int, int)> GetResonantAntiNodes(List<(int, int)> nodes, int gridRows, int gridCols)
     {
+        var antiNodes = new HashSet<(int, int)>();
+        foreach (var start in nodes)
+        {
+            foreach (var other in nodes)
+            {
+                if (start == other)
+                {
+                    continue;
+                }
 
-        return [];
+                var delta = (other.Item1 - start.Item1, other.Item2 - start.Item2);
+
+                var current = start;
+                while (MapContains(current, gridRows, gridCols))
+                {
+                    antiNodes.Add(current);
+                    current = (current.Item1 + delta.Item1, current.Item2 + delta.Item2);
+                }
+
+            }
+        }
+        return antiNodes;
     }
 }
