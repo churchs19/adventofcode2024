@@ -6,19 +6,22 @@ public class Day9(IUtilities utilities) : Day(utilities)
     {
         var inputLine = _utilities.ReadFile(filename)[0]
             .ToCharArray()
-            .Select(it => int.Parse(it.ToString()))
+            .Select(it => long.Parse(it.ToString()))
             .ToArray();
 
         var disk = InitializeDisk(inputLine);
+        CompactDisk(disk);
 
-        return int.MinValue;
+        var checksum = CalculateChecksum(disk);
+
+        return checksum;
     }
 
     public override long Part2(string filename)
     {
         var inputLine = _utilities.ReadFile(filename)[0]
             .ToCharArray()
-            .Select(it => int.Parse(it.ToString()))
+            .Select(it => long.Parse(it.ToString()))
             .ToArray();
 
         var disk = InitializeDisk(inputLine);
@@ -26,9 +29,9 @@ public class Day9(IUtilities utilities) : Day(utilities)
         return int.MinValue;
     }
 
-    private static List<int?> InitializeDisk(int[] inputLine)
+    private static List<long?> InitializeDisk(long[] inputLine)
     {
-        var disk = new List<int?>();
+        var disk = new List<long?>();
         int currentIndex = 0;
         for (var i = 0; i < inputLine.Length; i += 2)
         {
@@ -49,5 +52,36 @@ public class Day9(IUtilities utilities) : Day(utilities)
         return disk;
     }
 
+    private static void CompactDisk(List<long?> disk)
+    {
+        var firstNullIndex = disk.IndexOf(null);
+        var fileBlockCount = disk.Count(it => it.HasValue);
+        if (firstNullIndex == -1)
+        {
+            return;
+        }
 
+        while (firstNullIndex != fileBlockCount)
+        {
+            var lastBlockIndex = disk.FindLastIndex(it => it.HasValue);
+            disk[firstNullIndex] = disk[lastBlockIndex];
+            disk[lastBlockIndex] = null;
+            firstNullIndex = disk.IndexOf(null);
+        }
+
+        return;
+    }
+
+    private static long CalculateChecksum(List<long?> disk)
+    {
+        long checksum = 0;
+        int index = 0;
+        while (disk[index] != null)
+        {
+            checksum += index * (disk[index] ?? 0);
+            index++;
+        }
+
+        return checksum;
+    }
 }
