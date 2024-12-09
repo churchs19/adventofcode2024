@@ -1,5 +1,3 @@
-using System.Security;
-
 namespace Aoc2024;
 
 public class Day5(IUtilities utilities) : Day(utilities)

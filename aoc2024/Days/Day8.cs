@@ -1,5 +1,3 @@
-using Microsoft.VisualBasic;
-
 namespace Aoc2024;
 
 public class Day8(IUtilities utilities) : Day(utilities)

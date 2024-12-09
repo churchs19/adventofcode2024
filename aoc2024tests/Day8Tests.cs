@@ -1,7 +1,5 @@
 using Aoc2024;
 
-using Microsoft.VisualBasic;
-
 using NSubstitute;
 
 namespace Aoc2024Tests;
