@@ -25,6 +25,7 @@ public class Day9(IUtilities utilities) : Day(utilities)
             .ToArray();
 
         var disk = InitializeDisk(inputLine);
+        CompactFiles(disk);
 
         return int.MinValue;
     }
@@ -72,14 +73,20 @@ public class Day9(IUtilities utilities) : Day(utilities)
         return;
     }
 
+    private static void CompactFiles(List<long?> disk)
+    {
+        var firstNullIndex = disk.IndexOf(null);
+    }
+
     private static long CalculateChecksum(List<long?> disk)
     {
         long checksum = 0;
-        int index = 0;
-        while (disk[index] != null)
+        for (var index = 0; index < disk.Count; index++)
         {
-            checksum += index * (disk[index] ?? 0);
-            index++;
+            if (disk[index] != null)
+            {
+                checksum += index * (disk[index] ?? 0);
+            }
         }
 
         return checksum;

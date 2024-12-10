@@ -12,6 +12,7 @@ var days = new List<IDay>
     new Day7(utilities),
     new Day8(utilities),
     new Day9(utilities),
+    new Day10(utilities),
 };
 
 for (var i = 0; i < days.Count; i++)
