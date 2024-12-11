@@ -8,12 +8,10 @@ public class Day11(IUtilities utilities) : Day(utilities)
 
         var stones = inputLines[0].Split(" ").ToList();
 
-        for (var i = 0; i < 25; i++)
-        {
-            stones = ProcessBlink(stones);
-        }
+        var cache = new Dictionary<(string, int), long>();
 
-        return stones.Count;
+        return stones.Sum(it => CountStones(it, 25, cache));
+
     }
 
     public override long Part2(string filename)
@@ -22,26 +20,39 @@ public class Day11(IUtilities utilities) : Day(utilities)
 
         var stones = inputLines[0].Split(" ").ToList();
 
-        for (var i = 0; i < 75; i++)
-        {
-            stones = ProcessBlink(stones);
-        }
+        var cache = new Dictionary<(string, int), long>();
 
-        return stones.Count;
+        return stones.Sum(it => CountStones(it, 75, cache));
     }
 
-    private static List<string> ProcessBlink(List<string> stones)
+    private static long CountStones(string stone, int blinks, Dictionary<(string, int), long> cache)
     {
-        var newStones = stones.SelectMany(it =>
+        if (blinks == 0)
         {
-            string[] result = it == "0"
-                ? (["1"])
-                : it.Length % 2 == 0
-                    ? ([long.Parse(it[..(it.Length / 2)]).ToString(), long.Parse(it[(it.Length / 2)..]).ToString()])
-                    : ([(long.Parse(it) * 2024).ToString()]);
-            return result;
-        }).ToList();
+            return 1;
+        }
 
-        return newStones;
+        var key = (stone, blinks--);
+        if (cache.TryGetValue(key, out var cached))
+        {
+            return cached;
+        }
+
+        if (stone == "0")
+        {
+            cache[key] = CountStones(stone: "1", blinks, cache);
+        }
+        else if (stone.Length % 2 == 0)
+        {
+            var first = long.Parse(stone[..(stone.Length / 2)]).ToString();
+            var second = long.Parse(stone[(stone.Length / 2)..]).ToString();
+            cache[key] = CountStones(first, blinks, cache) + CountStones(second, blinks, cache);
+        }
+        else
+        {
+            cache[key] = CountStones((long.Parse(stone) * 2024).ToString(), blinks, cache);
+        }
+
+        return cache[key];
     }
 }
