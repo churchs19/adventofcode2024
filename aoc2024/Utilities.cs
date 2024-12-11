@@ -4,6 +4,7 @@ public interface IUtilities
 {
     string[] ReadFile(string filename);
     string[] ReadFileKeepBlankLines(string filename);
+    bool GridContains((int, int) node, int gridRows, int gridCols);
 }
 
 public class Utilities : IUtilities
@@ -24,5 +25,10 @@ public class Utilities : IUtilities
         return [.. File.ReadAllText(Path.Combine(projectFolder, filename))
             .TrimEnd()
             .Split("\n")];
+    }
+
+    public bool GridContains((int, int) node, int gridRows, int gridCols)
+    {
+        return node.Item1 >= 0 && node.Item1 < gridRows && node.Item2 >= 0 && node.Item2 < gridCols;
     }
 }

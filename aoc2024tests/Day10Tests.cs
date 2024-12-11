@@ -50,6 +50,6 @@ public class Day10Tests
         var result = day.Part2(filename);
 
         // Assert
-        Assert.That(result, Is.EqualTo(-1));
+        Assert.That(result, Is.EqualTo(81));
     }
 }
