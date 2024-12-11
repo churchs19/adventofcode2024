@@ -6,13 +6,13 @@ public class Day9(IUtilities utilities) : Day(utilities)
     {
         var inputLine = _utilities.ReadFile(filename)[0]
             .ToCharArray()
-            .Select(it => long.Parse(it.ToString()))
+            .Select(it => int.Parse(it.ToString()))
             .ToArray();
 
-        var disk = InitializeDisk(inputLine);
+        var disk = Disk.BuildDisk(inputLine);
         CompactDisk(disk);
 
-        var checksum = CalculateChecksum(disk);
+        var checksum = disk.Checksum();
 
         return checksum;
     }
@@ -21,42 +21,21 @@ public class Day9(IUtilities utilities) : Day(utilities)
     {
         var inputLine = _utilities.ReadFile(filename)[0]
             .ToCharArray()
-            .Select(it => long.Parse(it.ToString()))
+            .Select(it => int.Parse(it.ToString()))
             .ToArray();
 
-        var disk = InitializeDisk(inputLine);
+        var disk = Disk.BuildDisk(inputLine);
         CompactFiles(disk);
 
-        return int.MinValue;
+        var checksum = disk.Checksum();
+
+        return checksum;
     }
 
-    private static List<long?> InitializeDisk(long[] inputLine)
+    private static void CompactDisk(Disk disk)
     {
-        var disk = new List<long?>();
-        int currentIndex = 0;
-        for (var i = 0; i < inputLine.Length; i += 2)
-        {
-            for (var j = 0; j < inputLine[i]; j++)
-            {
-                disk.Add(currentIndex);
-            }
-            if (i + 1 < inputLine.Length)
-            {
-                for (var j = 0; j < inputLine[i + 1]; j++)
-                {
-                    disk.Add(null);
-                }
-            }
-            currentIndex++;
-        }
-
-        return disk;
-    }
-
-    private static void CompactDisk(List<long?> disk)
-    {
-        var firstNullIndex = disk.IndexOf(null);
-        var fileBlockCount = disk.Count(it => it.HasValue);
+        var firstNullIndex = disk.Blocks.IndexOf(null);
+        var fileBlockCount = disk.Blocks.Count(it => it.HasValue);
         if (firstNullIndex == -1)
         {
             return;
@@ -64,31 +43,82 @@ public class Day9(IUtilities utilities) : Day(utilities)
 
         while (firstNullIndex != fileBlockCount)
         {
-            var lastBlockIndex = disk.FindLastIndex(it => it.HasValue);
-            disk[firstNullIndex] = disk[lastBlockIndex];
-            disk[lastBlockIndex] = null;
-            firstNullIndex = disk.IndexOf(null);
+            var lastBlockIndex = disk.Blocks.FindLastIndex(it => it.HasValue);
+            disk.Blocks[firstNullIndex] = disk.Blocks[lastBlockIndex];
+            disk.Blocks[lastBlockIndex] = null;
+            firstNullIndex = disk.Blocks.IndexOf(null);
         }
 
         return;
     }
 
-    private static void CompactFiles(List<long?> disk)
+    private static void CompactFiles(Disk disk)
     {
-        var firstNullIndex = disk.IndexOf(null);
-    }
-
-    private static long CalculateChecksum(List<long?> disk)
-    {
-        long checksum = 0;
-        for (var index = 0; index < disk.Count; index++)
+        for (var fileId = disk.Allocated.Count - 1; fileId >= 0; fileId--)
         {
-            if (disk[index] != null)
+            var file = disk.Allocated[fileId];
+            for (var j = 0; j < disk.Free.Count; j++)
             {
-                checksum += index * (disk[index] ?? 0);
+                var free = disk.Free[j];
+                if (free.Item1 >= file.Min) break;
+                if ((free.Item2 - free.Item1 + 1) < file.Length) continue;
+
+                for (var k = 0; k < file.Length; k++)
+                {
+                    disk.Blocks[free.Item1 + k] = fileId;
+                    disk.Blocks[file.Min + k] = null;
+                }
+
+                disk.Free.RemoveAt(index: j);
+                if ((free.Item2 - free.Item1 + 1) > file.Length)
+                {
+                    disk.Free.Insert(index: j, (free.Item1 + file.Length, free.Item2));
+                }
+                break;
             }
         }
+    }
+}
 
-        return checksum;
+internal readonly record struct DiskFile(int Min, int Length);
+
+internal class Disk(List<int?> blocks, List<DiskFile> allocated, List<(int, int)> free)
+{
+    internal List<int?> Blocks { get; } = blocks;
+    internal List<DiskFile> Allocated { get; } = allocated;
+    internal List<(int, int)> Free { get; } = free;
+
+    internal long Checksum()
+    {
+        return Blocks.Select((it, index) => index * (it ?? 0L)).Sum();
+    }
+
+    internal static Disk BuildDisk(int[] inputLine)
+    {
+        var blocks = new List<int?>();
+        var allocated = new List<DiskFile>();
+        var free = new List<(int, int)>();
+
+        int currentIndex = 0;
+        for (var i = 0; i < inputLine.Length; i += 2)
+        {
+            allocated.Add(new DiskFile(Min: blocks.Count, Length: inputLine[i]));
+            for (var j = 0; j < inputLine[i]; j++)
+            {
+                blocks.Add(currentIndex);
+            }
+            if (i + 1 < inputLine.Length)
+            {
+                var startFree = blocks.Count;
+                for (var j = 0; j < inputLine[i + 1]; j++)
+                {
+                    blocks.Add(null);
+                }
+                free.Add((startFree, blocks.Count - 1));
+            }
+            currentIndex++;
+        }
+
+        return new Disk(blocks, allocated, free);
     }
 }
