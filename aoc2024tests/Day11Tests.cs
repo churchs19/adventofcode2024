@@ -13,7 +13,7 @@ public class Day11Tests
         // Arrange
         string filename = "input.txt";
         var mockUtilities = Substitute.For<IUtilities>();
-        mockUtilities.ReadFile(filename).Returns([""]);
+        mockUtilities.ReadFile(filename).Returns(["125 17"]);
         var day = new Day11(mockUtilities);
 
         // Act
