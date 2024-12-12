@@ -29,9 +29,15 @@ public class Day12(IUtilities utilities) : Day(utilities)
 
         var uniqueChars = map.SelectMany(it => it).Distinct().ToArray();
 
+        var totalPrice = uniqueChars.Sum(it =>
+        {
+            var areas = FindAreas(map, it);
+            var edges = FindTurns(map, it);
 
+            return areas.Zip(edges, (area, edges) => area * edges).Sum();
+        });
 
-        return long.MinValue;
+        return totalPrice;
     }
 
     //find the area of all of the cells represented by the same character in the map
@@ -131,5 +137,63 @@ public class Day12(IUtilities utilities) : Day(utilities)
         else perimeter += GetPerimeterDepthFirst(map, x, y - 1, c, visited);
 
         return perimeter;
+    }
+
+    private static List<long> FindTurns(char[][] map, char c)
+    {
+        int rows = map.Length;
+        int cols = map[0].Length;
+        bool[,] visited = new bool[rows, cols];
+        List<long> turns = [];
+        for (var row = 0; row < rows; row++)
+        {
+            for (var col = 0; col < cols; col++)
+            {
+                if (map[row][col] == c && !visited[row, col])
+                {
+                    var newTurns = GetTurnsDepthFirstSearch(map, row, col, c, visited, -1);
+                    turns.Add(newTurns);
+                }
+            }
+        }
+        return turns;
+    }
+
+    private static long GetTurnsDepthFirstSearch(char[][] map, int x, int y, char c, bool[,] visited, int previousDirection)
+    {
+        int rows = map.Length;
+        int cols = map[0].Length;
+
+        // Directions: 0 = up, 1 = right, 2 = down, 3 = left
+        int[] dx = [-1, 0, 1, 0];
+        int[] dy = [0, 1, 0, -1];
+
+        // Check for out of bounds or if the cell is already visited or not the target character
+        if (x < 0 || x >= rows || y < 0 || y >= cols || visited[x, y] || map[x][y] != c)
+        {
+            return 0;
+        }
+
+        // Mark the cell as visited
+        visited[x, y] = true;
+
+        long turns = 0;
+
+        for (int direction = 0; direction < 4; direction++)
+        {
+            int newX = x + dx[direction];
+            int newY = y + dy[direction];
+
+            if (newX >= 0 && newX < rows && newY >= 0 && newY < cols && map[newX][newY] == c && !visited[newX, newY])
+            {
+                if (previousDirection != -1 && previousDirection != direction)
+                {
+                    turns++;
+                }
+                turns += GetTurnsDepthFirstSearch(map, newX, newY, c, visited, direction);
+            }
+        }
+
+        return turns;
     }
 }
