@@ -69,7 +69,7 @@ public class Day15Tests
     }
 
     [Test]
-    public void Part2_ReturnsExpected()
+    public void Part2_LargeExample_ReturnsExpected()
     {
         // Arrange
         string filename = "input.txt";
