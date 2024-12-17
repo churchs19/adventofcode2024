@@ -70,18 +70,64 @@ public class Day16Tests
     }
 
     [Test]
-    public void Part2_ReturnsExpected()
+    public void Part2_SmallExample_ReturnsExpected()
     {
         // Arrange
         string filename = "input.txt";
         var mockUtilities = Substitute.For<IUtilities>();
-        mockUtilities.ReadFile(filename).Returns([""]);
+        mockUtilities.ReadFile(filename).Returns(["###############",
+"#.......#....E#",
+"#.#.###.#.###.#",
+"#.....#.#...#.#",
+"#.###.#####.#.#",
+"#.#.#.......#.#",
+"#.#.#####.###.#",
+"#...........#.#",
+"###.#.#####.#.#",
+"#...#.....#.#.#",
+"#.#.#.###.#.#.#",
+"#.....#...#.#.#",
+"#.###.#.#.#.#.#",
+"#S..#.....#...#",
+"###############"]);
         var day = new Day16(mockUtilities);
 
         // Act
         var result = day.Part2(filename);
 
         // Assert
-        Assert.That(result, Is.EqualTo(-1));
+        Assert.That(result, Is.EqualTo(45));
+    }
+
+    [Test]
+    public void Part2_LargeExample_ReturnsExpected()
+    {
+        // Arrange
+        string filename = "input.txt";
+        var mockUtilities = Substitute.For<IUtilities>();
+        mockUtilities.ReadFile(filename).Returns(["#################",
+"#...#...#...#..E#",
+"#.#.#.#.#.#.#.#.#",
+"#.#.#.#...#...#.#",
+"#.#.#.#.###.#.#.#",
+"#...#.#.#.....#.#",
+"#.#.#.#.#.#####.#",
+"#.#...#.#.#.....#",
+"#.#.#####.#.###.#",
+"#.#.#.......#...#",
+"#.#.###.#####.###",
+"#.#.#...#.....#.#",
+"#.#.#.#####.###.#",
+"#.#.#.........#.#",
+"#.#.#.#########.#",
+"#S#.............#",
+"#################"]);
+        var day = new Day16(mockUtilities);
+
+        // Act
+        var result = day.Part2(filename);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(64));
     }
 }
