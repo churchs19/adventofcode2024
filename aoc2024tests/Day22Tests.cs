@@ -33,8 +33,8 @@ public class Day22Tests
         string filename = "input.txt";
         var mockUtilities = Substitute.For<IUtilities>();
         mockUtilities.ReadFile(filename).Returns(["1",
-"10",
-"100",
+"2",
+"3",
 "2024"]);
         var day = new Day22(mockUtilities);
 
@@ -42,6 +42,6 @@ public class Day22Tests
         var result = day.Part2(filename);
 
         // Assert
-        Assert.That(result, Is.EqualTo(-1));
+        Assert.That(result, Is.EqualTo(23));
     }
 }
