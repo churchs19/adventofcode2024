@@ -52,13 +52,14 @@ public class Day10(IUtilities utilities) : Day(utilities)
     {
         var map = inputLines.Select(it =>
             it.ToCharArray()
+                .Where(x => !string.IsNullOrWhiteSpace(x.ToString()))
                 .Select(x => int.Parse(x.ToString()))
                 .ToArray())
             .ToArray();
         return map;
     }
 
-    private HashSet<State> FindPaths(int[][] map, int startingRow, int startingCol)
+    private static HashSet<State> FindPaths(int[][] map, int startingRow, int startingCol)
     {
         var paths = new HashSet<State>();
 

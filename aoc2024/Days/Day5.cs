@@ -6,7 +6,9 @@ public class Day5(IUtilities utilities) : Day(utilities)
     {
         var lines = _utilities.ReadFileKeepBlankLines(filename);
 
-        var blankIndex = Array.IndexOf(lines, "");
+        var blankIndex = lines.Index()
+            .Where(it => string.IsNullOrWhiteSpace(it.Item)).Select(it => it.Index)
+            .First();
         var rules = lines.Take(blankIndex).Select(it => it.Split('|').Select(int.Parse).ToArray()).ToArray();
         var printLines = lines.Skip(blankIndex + 1).Select(it => it.Split(',').Select(int.Parse).ToArray()).ToArray();
 
@@ -26,7 +28,9 @@ public class Day5(IUtilities utilities) : Day(utilities)
     {
         var lines = _utilities.ReadFileKeepBlankLines(filename);
 
-        var blankIndex = Array.IndexOf(lines, "");
+        var blankIndex = lines.Index()
+            .Where(it => string.IsNullOrWhiteSpace(it.Item)).Select(it => it.Index)
+            .First();
         var rules = lines.Take(blankIndex).Select(it => it.Split('|').Select(int.Parse).ToArray()).ToArray();
         var printLines = lines.Skip(blankIndex + 1).Select(it => it.Split(',').Select(int.Parse).ToArray()).ToArray();
 

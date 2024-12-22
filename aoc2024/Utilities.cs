@@ -16,15 +16,18 @@ public class Utilities : IUtilities
             .TrimEnd()
             .Split("\n")
             .Where(it => !string.IsNullOrWhiteSpace(it))
+            .Select(it => it.Trim())
             .ToArray();
     }
 
     public string[] ReadFileKeepBlankLines(string filename)
     {
         var projectFolder = Directory.GetCurrentDirectory();
-        return [.. File.ReadAllText(Path.Combine(projectFolder, filename))
+        return File.ReadAllText(Path.Combine(projectFolder, filename))
             .TrimEnd()
-            .Split("\n")];
+            .Split("\n")
+            .Select(it => it.Trim())
+            .ToArray();
     }
 
     public bool GridContains((int, int) node, int gridRows, int gridCols)
