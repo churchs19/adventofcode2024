@@ -12,7 +12,7 @@ public class Day4Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["MMMSXXMASM",
 "MSAMXMSMSA",
 "AMXSXMAAMM",
@@ -37,7 +37,7 @@ public class Day4Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["....XXMAS.",
 ".SAMXMS...",
 "...S..A...",
@@ -62,7 +62,7 @@ public class Day4Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["MMMSXXMASM",
 "MSAMXMSMSA",
 "AMXSXMAAMM",

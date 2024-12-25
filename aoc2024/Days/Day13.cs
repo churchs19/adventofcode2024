@@ -2,12 +2,12 @@ using System.Text.RegularExpressions;
 
 namespace Aoc2024;
 
-public partial class Day13(IUtilities utilities) : Day(utilities)
+public partial class Day13(IFileUtilities utilities) : Day(utilities)
 {
     public override long Part1(string filename)
     {
         var inputLines = _utilities.ReadFileKeepBlankLines(filename);
-        var chunks = GetInputChunks(inputLines);
+        var chunks = ChunkUtility.GetInputChunks(inputLines);
 
         long tokens = 0;
 
@@ -30,7 +30,7 @@ public partial class Day13(IUtilities utilities) : Day(utilities)
     public override long Part2(string filename)
     {
         var inputLines = _utilities.ReadFileKeepBlankLines(filename);
-        var chunks = GetInputChunks(inputLines);
+        var chunks = ChunkUtility.GetInputChunks(inputLines);
 
         long tokens = 0;
 
@@ -98,31 +98,5 @@ public partial class Day13(IUtilities utilities) : Day(utilities)
     private static List<long> ParseLongs(string input)
     {
         return NumberRegex().Matches(input).Select(it => long.Parse(it.Value.AsSpan())).ToList();
-    }
-
-    private static List<List<string>> GetInputChunks(IEnumerable<string> inputLines)
-    {
-        var chunks = new List<List<string>>();
-        var currentChunk = new List<string>();
-
-        foreach (var line in inputLines)
-        {
-            if (string.IsNullOrWhiteSpace(line))
-            {
-                chunks.Add(currentChunk);
-                currentChunk = [];
-            }
-            else
-            {
-                currentChunk.Add(line);
-            }
-        }
-
-        if (currentChunk.Count > 0)
-        {
-            chunks.Add(currentChunk);
-        }
-
-        return chunks;
     }
 }

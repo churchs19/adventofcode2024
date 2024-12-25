@@ -1,6 +1,6 @@
 ﻿using Aoc2024;
 
-var utilities = new Utilities();
+var utilities = new FileUtilities();
 var days = new List<IDay>
 {
     new Day1(utilities),

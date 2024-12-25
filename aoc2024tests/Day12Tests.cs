@@ -12,7 +12,7 @@ public class Day12Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["RRRRIICCFF",
 "RRRRIICCCF",
 "VVRRRCCFFF",
@@ -37,7 +37,7 @@ public class Day12Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["OOOOO",
 "OXOXO",
 "OOOOO",
@@ -57,7 +57,7 @@ public class Day12Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["RRRRIICCFF",
 "RRRRIICCCF",
 "VVRRRCCFFF",
@@ -82,7 +82,7 @@ public class Day12Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["OOOOO",
 "OXOXO",
 "OOOOO",
@@ -102,7 +102,7 @@ public class Day12Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["AAAAAA",
 "AAABBA",
 "AAABBA",
@@ -123,7 +123,7 @@ public class Day12Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["EEEEE",
 "EXXXX",
 "EEEEE",

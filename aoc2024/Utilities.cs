@@ -1,13 +1,12 @@
 namespace Aoc2024;
 
-public interface IUtilities
+public interface IFileUtilities
 {
     string[] ReadFile(string filename);
     string[] ReadFileKeepBlankLines(string filename);
-    bool GridContains((int, int) node, int gridRows, int gridCols);
 }
 
-public class Utilities : IUtilities
+public class FileUtilities : IFileUtilities
 {
     public string[] ReadFile(string filename)
     {
@@ -28,10 +27,5 @@ public class Utilities : IUtilities
             .Split("\n")
             .Select(it => it.Trim())
             .ToArray();
-    }
-
-    public bool GridContains((int, int) node, int gridRows, int gridCols)
-    {
-        return node.Item1 >= 0 && node.Item1 < gridRows && node.Item2 >= 0 && node.Item2 < gridCols;
     }
 }

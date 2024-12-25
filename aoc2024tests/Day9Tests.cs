@@ -12,7 +12,7 @@ public class Day9Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["2333133121414131402"]);
         var day = new Day9(mockUtilities);
 
@@ -28,7 +28,7 @@ public class Day9Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["2333133121414131402"]);
         var day = new Day9(mockUtilities);
 

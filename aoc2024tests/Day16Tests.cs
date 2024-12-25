@@ -12,7 +12,7 @@ public class Day16Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["###############",
 "#.......#....E#",
 "#.#.###.#.###.#",
@@ -42,7 +42,7 @@ public class Day16Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["#################",
 "#...#...#...#..E#",
 "#.#.#.#.#.#.#.#.#",
@@ -74,7 +74,7 @@ public class Day16Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["###############",
 "#.......#....E#",
 "#.#.###.#.###.#",
@@ -104,7 +104,7 @@ public class Day16Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["#################",
 "#...#...#...#..E#",
 "#.#.#.#.#.#.#.#.#",

@@ -12,7 +12,7 @@ public class Day8Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["............",
 "........0...",
 ".....0......",
@@ -39,7 +39,7 @@ public class Day8Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["............",
 "........0...",
 ".....0......",
@@ -66,7 +66,7 @@ public class Day8Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["T.........",
 "...T......",
 ".T........",

@@ -12,7 +12,7 @@ public class Day19Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFileKeepBlankLines(filename).Returns(["r, wr, b, g, bwu, rb, gb, br",
 "",
 "brwrr",
@@ -37,7 +37,7 @@ public class Day19Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFileKeepBlankLines(filename).Returns(["r, wr, b, g, bwu, rb, gb, br",
 "",
 "brwrr",

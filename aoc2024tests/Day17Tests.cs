@@ -12,7 +12,7 @@ public class Day17Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFileKeepBlankLines(filename).Returns(["Register A: 729",
 "Register B: 0",
 "Register C: 0",
@@ -32,7 +32,7 @@ public class Day17Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFileKeepBlankLines(filename).Returns(["Register A: 729",
 "Register B: 0",
 "Register C: 0",

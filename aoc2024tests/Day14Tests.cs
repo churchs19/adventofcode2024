@@ -12,7 +12,7 @@ public class Day14Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["p=0,4 v=3,-3",
 "p=0,0 v=1,3",
 "p=3,0 v=-2,-2",
@@ -36,7 +36,7 @@ public class Day14Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["p=0,4 v=3,-3",
 "p=0,0 v=1,3",
 "p=3,0 v=-2,-2",

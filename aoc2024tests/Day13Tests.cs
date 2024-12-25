@@ -12,7 +12,7 @@ public class Day13Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFileKeepBlankLines(filename).Returns(["Button A: X+94, Y+34",
 "Button B: X+22, Y+67",
 "Prize: X=8400, Y=5400",

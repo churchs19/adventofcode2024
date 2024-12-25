@@ -12,7 +12,7 @@ public class Day24Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFileKeepBlankLines(filename).Returns(["x00: 1",
 "x01: 1",
 "x02: 1",
@@ -37,7 +37,7 @@ public class Day24Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFileKeepBlankLines(filename).Returns(["x00: 1",
 "x01: 0",
 "x02: 1",
@@ -99,7 +99,7 @@ public class Day24Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFileKeepBlankLines(filename).Returns([""]);
         var day = new Day24(mockUtilities);
 

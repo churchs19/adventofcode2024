@@ -12,7 +12,7 @@ public class Day7Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["190: 10 19",
 "3267: 81 40 27",
 "83: 17 5",
@@ -36,7 +36,7 @@ public class Day7Tests
     {
         // Arrange
         string filename = "input.txt";
-        var mockUtilities = Substitute.For<IUtilities>();
+        var mockUtilities = Substitute.For<IFileUtilities>();
         mockUtilities.ReadFile(filename).Returns(["190: 10 19",
 "3267: 81 40 27",
 "83: 17 5",

@@ -1,6 +1,6 @@
 namespace Aoc2024;
 
-public class Day22(IUtilities utilities) : Day(utilities)
+public class Day22(IFileUtilities utilities) : Day(utilities)
 {
     public override long Part1(string filename)
     {
