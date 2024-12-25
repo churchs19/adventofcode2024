@@ -13,14 +13,52 @@ public class Day25Tests
         // Arrange
         string filename = "input.txt";
         var mockUtilities = Substitute.For<IUtilities>();
-        mockUtilities.ReadFile(filename).Returns([""]);
+        mockUtilities.ReadFileKeepBlankLines(filename).Returns(["#####",
+".####",
+".####",
+".####",
+".#.#.",
+".#...",
+".....",
+"",
+"#####",
+"##.##",
+".#.##",
+"...##",
+"...#.",
+"...#.",
+".....",
+"",
+".....",
+"#....",
+"#....",
+"#...#",
+"#.#.#",
+"#.###",
+"#####",
+"",
+".....",
+".....",
+"#.#..",
+"###..",
+"###.#",
+"###.#",
+"#####",
+"",
+".....",
+".....",
+".....",
+"#....",
+"#.#..",
+"#.#.#",
+"#####"]);
         var day = new Day25(mockUtilities);
 
         // Act
         var result = day.Part1(filename);
 
         // Assert
-        Assert.That(result, Is.EqualTo(-1));
+        Assert.That(result, Is.EqualTo(3));
     }
 
     [Test]
@@ -29,7 +67,45 @@ public class Day25Tests
         // Arrange
         string filename = "input.txt";
         var mockUtilities = Substitute.For<IUtilities>();
-        mockUtilities.ReadFile(filename).Returns([""]);
+        mockUtilities.ReadFileKeepBlankLines(filename).Returns(["#####",
+".####",
+".####",
+".####",
+".#.#.",
+".#...",
+".....",
+"",
+"#####",
+"##.##",
+".#.##",
+"...##",
+"...#.",
+"...#.",
+".....",
+"",
+".....",
+"#....",
+"#....",
+"#...#",
+"#.#.#",
+"#.###",
+"#####",
+"",
+".....",
+".....",
+"#.#..",
+"###..",
+"###.#",
+"###.#",
+"#####",
+"",
+".....",
+".....",
+".....",
+"#....",
+"#.#..",
+"#.#.#",
+"#####"]);
         var day = new Day25(mockUtilities);
 
         // Act
