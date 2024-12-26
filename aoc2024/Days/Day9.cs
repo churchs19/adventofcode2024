@@ -1,4 +1,6 @@
-namespace Aoc2024;
+using Aoc2024.Utilities;
+
+namespace Aoc2024.Days;
 
 public class Day9(IFileUtilities utilities) : Day(utilities)
 {

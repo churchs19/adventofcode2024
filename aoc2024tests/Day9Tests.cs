@@ -1,4 +1,5 @@
-using Aoc2024;
+using Aoc2024.Utilities;
+using Aoc2024.Days;
 
 using NSubstitute;
 

@@ -1,3 +1,5 @@
+using Aoc2024.Utilities;
+
 namespace Aoc2024;
 
 public abstract class Day(IFileUtilities utilities) : IDay

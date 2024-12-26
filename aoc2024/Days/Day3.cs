@@ -1,6 +1,9 @@
 using System.Text.RegularExpressions;
 
-namespace Aoc2024;
+using Aoc2024.Utilities;
+
+namespace Aoc2024.Days;
+
 public partial class Day3(IFileUtilities utilities) : Day(utilities)
 {
     [GeneratedRegex(@"mul\([\d]+,[\d]+\)")]
