@@ -14,7 +14,7 @@ public class Day12(IFileUtilities utilities) : Day(utilities)
 
         var totalPrice = uniqueChars.Sum(it =>
         {
-            var areas = FindAreas(map, it);
+            var areas = FindAreas(map, it).areas;
             var perimeters = FindPerimeters(map, it);
 
             return areas.Zip(perimeters, (area, perimeter) => area * perimeter).Sum();
@@ -34,32 +34,35 @@ public class Day12(IFileUtilities utilities) : Day(utilities)
         var totalPrice = uniqueChars.Sum(it =>
         {
             var areas = FindAreas(map, it);
-            var edges = FindTurns(map, it);
 
-            return areas.Zip(edges, (area, edges) => area * edges).Sum();
+            return areas.areas.Zip(areas.areaCells, (area, areaCells) => area * CountSides(areaCells)).Sum();
         });
 
         return totalPrice;
     }
 
     //find the area of all of the cells represented by the same character in the map
-    private static List<long> FindAreas(char[][] map, char c)
+    private static (List<long> areas, List<bool[,]> areaCells) FindAreas(char[][] map, char c)
     {
         int rows = map.Length;
         int cols = map[0].Length;
         bool[,] visited = new bool[rows, cols];
         List<long> areas = [];
+        List<bool[,]> areaCells = [];
         for (var row = 0; row < rows; row++)
         {
             for (var col = 0; col < cols; col++)
             {
                 if (map[row][col] == c && !visited[row, col])
                 {
-                    areas.Add(GetAreaDepthFirst(map, row, col, c, visited));
+                    var areaVisited = new bool[rows, cols];
+                    areas.Add(GetAreaDepthFirst(map, row, col, c, areaVisited));
+                    visited = UnionBoolArrays(visited, areaVisited);
+                    areaCells.Add(areaVisited);
                 }
             }
         }
-        return areas;
+        return (areas, areaCells);
     }
 
     private static long GetAreaDepthFirst(char[][] map, int x, int y, char c, bool[,] visited)
@@ -141,61 +144,78 @@ public class Day12(IFileUtilities utilities) : Day(utilities)
         return perimeter;
     }
 
-    private static List<long> FindTurns(char[][] map, char c)
+    public static long CountSides(bool[,] array)
     {
-        int rows = map.Length;
-        int cols = map[0].Length;
-        bool[,] visited = new bool[rows, cols];
-        List<long> turns = [];
-        for (var row = 0; row < rows; row++)
+        int rows = array.GetLength(0);
+        int cols = array.GetLength(1);
+        List<(int, int)> corners = [];
+
+        for (int row = 0; row < rows; row++)
         {
-            for (var col = 0; col < cols; col++)
+            for (int col = 0; col < cols; col++)
             {
-                if (map[row][col] == c && !visited[row, col])
+                if (array[row, col])
                 {
-                    var newTurns = GetTurnsDepthFirstSearch(map, row, col, c, visited, -1);
-                    turns.Add(newTurns);
+                    // Check if this cell is a corner
+                    bool isCorner = false;
+
+                    // Check top-left corner
+                    if (row == 0 || col == 0 || !array[row - 1, col] || !array[row, col - 1])
+                    {
+                        isCorner = true;
+                    }
+
+                    // Check top-right corner
+                    if (row == 0 || col == cols - 1 || !array[row - 1, col] || !array[row, col + 1])
+                    {
+                        isCorner = true;
+                    }
+
+                    // Check bottom-left corner
+                    if (row == rows - 1 || col == 0 || !array[row + 1, col] || !array[row, col - 1])
+                    {
+                        isCorner = true;
+                    }
+
+                    // Check bottom-right corner
+                    if (row == rows - 1 || col == cols - 1 || !array[row + 1, col] || !array[row, col + 1])
+                    {
+                        isCorner = true;
+                    }
+
+                    if (isCorner)
+                    {
+                        corners.Add((row, col));
+                    }
                 }
             }
         }
-        return turns;
+
+        return corners.Count;
     }
 
-    private static long GetTurnsDepthFirstSearch(char[][] map, int x, int y, char c, bool[,] visited, int previousDirection)
+    public static bool[,] UnionBoolArrays(bool[,] array1, bool[,] array2)
     {
-        int rows = map.Length;
-        int cols = map[0].Length;
+        int rows1 = array1.GetLength(0);
+        int cols1 = array1.GetLength(1);
+        int rows2 = array2.GetLength(0);
+        int cols2 = array2.GetLength(1);
 
-        // Directions: 0 = up, 1 = right, 2 = down, 3 = left
-        int[] dx = [-1, 0, 1, 0];
-        int[] dy = [0, 1, 0, -1];
-
-        // Check for out of bounds or if the cell is already visited or not the target character
-        if (x < 0 || x >= rows || y < 0 || y >= cols || visited[x, y] || map[x][y] != c)
+        if (rows1 != rows2 || cols1 != cols2)
         {
-            return 0;
+            throw new ArgumentException("Both arrays must have the same dimensions.");
         }
 
-        // Mark the cell as visited
-        visited[x, y] = true;
+        bool[,] result = new bool[rows1, cols1];
 
-        long turns = 0;
-
-        for (int direction = 0; direction < 4; direction++)
+        for (int row = 0; row < rows1; row++)
         {
-            int newX = x + dx[direction];
-            int newY = y + dy[direction];
-
-            if (newX >= 0 && newX < rows && newY >= 0 && newY < cols && map[newX][newY] == c && !visited[newX, newY])
+            for (int col = 0; col < cols1; col++)
             {
-                if (previousDirection != -1 && previousDirection != direction)
-                {
-                    turns++;
-                }
-                turns += GetTurnsDepthFirstSearch(map, newX, newY, c, visited, direction);
+                result[row, col] = array1[row, col] || array2[row, col];
             }
         }
 
-        return turns;
+        return result;
     }
 }
